@@ -6,12 +6,11 @@
 #    By: pablo-ma <pablo-ma@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/09 16:51:57 by pablo-ma          #+#    #+#              #
-#    Updated: 2020/01/09 17:12:41 by pablo-ma         ###   ########.fr        #
+#    Updated: 2020/01/13 18:29:38 by pablo-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-#@
-SRCS = 		ft_bzero.c 
+SRCS = 		ft_bzero.c ft_memcpy.c ft_memset.c ft_memccpy.c ft_memmove.c
 
 OBJS = 		${SRCS:.c=.o}
 
@@ -23,8 +22,7 @@ ${NAME}:
 			@gcc ${FLAGS} -c ${SRCS}
 			@ar rc ${NAME} ${OBJS}
 
-all:
-			${NAME}
+all:		${NAME}
 
 clean:
 			rm -f ${OBJS}
@@ -34,4 +32,4 @@ fclean:		clean
 
 re:			fclean all
 
-.PHONY		clean fclean all re
+.PHONY:		clean fclean all re

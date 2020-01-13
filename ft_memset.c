@@ -6,11 +6,11 @@
 /*   By: pablo-ma <pablo-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 15:26:10 by pablo-ma          #+#    #+#             */
-/*   Updated: 2020/01/09 17:08:25 by pablo-ma         ###   ########.fr       */
+/*   Updated: 2020/01/13 17:33:35 by pablo-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "libft.h"
 
 void	*ft_memset(void *b, int c, size_t len)
 {

@@ -1,27 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   ft_memccpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pablo-ma <pablo-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/09 11:27:00 by pablo-ma          #+#    #+#             */
-/*   Updated: 2020/01/13 17:33:11 by pablo-ma         ###   ########.fr       */
+/*   Created: 2020/01/13 17:07:57 by pablo-ma          #+#    #+#             */
+/*   Updated: 2020/01/13 18:03:32 by pablo-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_bzero(void *s, size_t n)
+void	*ft_memccpy(void *dest, const void *src, int c, size_t n)
 {
-	int				i;
-	unsigned char	*str;
+	size_t		i;
+	char		*str1;
+	const char	*str2;
 
+	str1 = dest;
+	str2 = src;
 	i = 0;
-	str = s;
-	while (n--)
+	while (i < n)
 	{
-		str[i] = '\0';
+		str1[i] = str2[i];
+		if (str1[i] == c)
+			return (dest + i + 1);
 		i++;
 	}
+	return (0);
 }
