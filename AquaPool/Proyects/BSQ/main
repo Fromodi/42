@@ -1,0 +1,72 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmartin- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/12/03 21:13:23 by mmartin-          #+#    #+#             */
+/*   Updated: 2019/12/04 23:27:51 by mmartin-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <unistd.h>
+#include <fcntl.h>
+#include <stdlib.h>
+#include "function.h"
+
+void	process_input(char *argv)
+{
+	t_mapdata	data;
+	t_calc		calc;
+	char		*txt;
+
+	txt = file_contents(argv);
+	if (!txt)
+		return ;
+	data = get_mapdata(txt);
+	calc = calculate((txt + data.ptr), data.cols, data.rows, data.obstacle);
+	if (data.rows < 1 || data.cols < 1 || calc.val < 1)
+	{
+		write(1, "map error\n", 11);
+		return ;
+	}
+	print_map(calc, (txt + data.ptr), data.cols, data.filled);
+	free(txt);
+}
+
+void	standard_input(void)
+{
+	char		temp_char;
+	int			file;
+
+	file = open("./stdin_tmpfile", O_TRUNC | O_CREAT | O_RDWR, 0777);
+	if (file <= 0)
+		return ;
+	while (read(0, &temp_char, 1) > 0)
+		write(file, &temp_char, 1);
+	close(file);
+}
+
+int		main(int argc, char *argv[])
+{
+	int i;
+
+	i = 1;
+	if (argc > 1)
+	{
+		while (i < argc)
+		{
+			process_input(argv[i]);
+			i++;
+			if (i < argc)
+				write(1, "\n", 1);
+		}
+	}
+	else
+	{
+		standard_input();
+		process_input("./stdin_tmpfile");
+	}
+	return (0);
+}

@@ -1,0 +1,5 @@
+Credentials cache: API:30BDC624-4B46-4DC1-A2E9-27CF70374A59
+        Principal: pablo-ma@42MADRID.COM
+
+  Issued                Expires               Principal
+Nov 11 10:45:44 2019  Nov 11 20:45:44 2019  krbtgt/42MADRID.COM@42MADRID.COM

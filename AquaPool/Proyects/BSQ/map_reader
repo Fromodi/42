@@ -1,0 +1,120 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_reader.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jcorral- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/12/03 11:43:07 by jcorral-          #+#    #+#             */
+/*   Updated: 2019/12/04 21:49:37 by mmartin-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include "function.h"
+
+int			get_rows(char *map, int limit)
+{
+	int rows;
+	int counter;
+
+	rows = 0;
+	counter = 0;
+	while (counter < limit)
+	{
+		if (map[counter] >= '0' && map[counter] <= '9')
+			rows += map[counter] - 48;
+		else
+			return (-1);
+		if (counter + 1 == limit)
+			break ;
+		if (map[counter + 1] >= '0' && map[counter + 1] <= '9')
+			rows *= 10;
+		counter++;
+	}
+	return (rows == 0) ? -1 : rows;
+}
+
+int			get_cols(char *map, t_mapdata *data)
+{
+	int i;
+	int charc;
+
+	i = 0;
+	while (map[i] != '\n' && map[i])
+		i++;
+	data->ptr = ++i;
+	charc = i;
+	while (map[i] != '\n')
+		i++;
+	charc = i - charc;
+	i = 1;
+	while (map[data->ptr - 1 + ((charc + 1) * i)] == '\n' &&
+			map[data->ptr + ((charc + 1) * i)])
+		i++;
+	if (i != data->rows)
+		return (-1);
+	i = data->ptr;
+	while (map[i])
+	{
+		if (map[i] != '\n' && map[i] != data->empty && map[i] != data->obstacle)
+			return (-1);
+		i++;
+	}
+	return (charc);
+}
+
+t_mapdata	get_mapdata(char *map)
+{
+	t_mapdata	mapdata;
+	int			counter;
+
+	counter = 0;
+	mapdata.rows = 0;
+	mapdata.cols = 0;
+	while (map[counter] != '\n' && map[counter])
+		counter++;
+	counter--;
+	if (map[counter] == map[counter - 1] || map[counter] == map[counter - 2] ||
+			map[counter - 1] == map[counter - 2])
+		return (mapdata);
+	if (map[counter] < 32 || map[counter] > 126 ||
+			map[counter - 1] < 32 || map[counter - 1] > 126 ||
+			map[counter - 2] < 32 || map[counter - 2] > 126)
+		return (mapdata);
+	mapdata.filled = map[counter];
+	mapdata.obstacle = map[--counter];
+	mapdata.empty = map[--counter];
+	mapdata.rows = get_rows(map, counter);
+	mapdata.cols = get_cols(map, &mapdata);
+	return (mapdata);
+}
+
+char		*file_contents(char *read_file)
+{
+	char		*txt;
+	char		temp_char;
+	int			file;
+	int			i;
+
+	file = open(read_file, O_RDONLY);
+	i = 0;
+	while (read(file, &temp_char, 1) > 0)
+		i++;
+	close(file);
+	file = open(read_file, O_RDONLY);
+	txt = (char*)malloc(i + 1);
+	if (i == 0)
+	{
+		write(1, "map error\n", 10);
+		return (0);
+	}
+	if (file == -1 || i == 0 || txt == 0)
+		return (0);
+	read(file, txt, i);
+	close(file);
+	txt[i] = 0;
+	return (txt);
+}

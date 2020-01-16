@@ -1,0 +1,37 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   function.h                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jcorral- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/12/03 09:54:45 by jcorral-          #+#    #+#             */
+/*   Updated: 2019/12/04 19:25:45 by mmartin-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef FUNCTION_H
+# define FUNCTION_H
+
+typedef struct	s_calc
+{
+	int	pos;
+	int	val;
+}				t_calc;
+
+typedef struct	s_mapdata
+{
+	int		ptr;
+	int		cols;
+	int		rows;
+	char	empty;
+	char	obstacle;
+	char	filled;
+}				t_mapdata;
+
+t_calc			calculate(char *txt, int c, int r, char stop);
+t_mapdata		get_mapdata(char *map);
+char			*file_contents(char *read_file);
+void			print_map(t_calc square, char *txt, int c, char print);
+
+#endif
