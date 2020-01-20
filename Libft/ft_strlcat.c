@@ -1,37 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memmove.c                                       :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pablo-ma <pablo-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/13 18:28:10 by pablo-ma          #+#    #+#             */
-/*   Updated: 2020/01/16 21:20:59 by pablo-ma         ###   ########.fr       */
+/*   Created: 2020/01/20 10:40:11 by pablo-ma          #+#    #+#             */
+/*   Updated: 2020/01/20 10:42:46 by pablo-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memmove(void *dest, const void *src, size_t len)
+size_t	ft_strlcat(char *dest, const char *src, size_t size)
 {
-	size_t		i;
-	char		*str1;
-	char const	*str2;
+	unsigned int	i;
+	unsigned int	j;
+	unsigned int	res;
 
-	str1 = dest;
-	str2 = src;
-	i = 0;
-	if (str2 < str1)
-		while (i <= len)
-		{
-			i++;
-			str1[len - i] = str2[len - i];
-		}
+	i = (ft_strlen(dest));
+	res = 0;
+	while (src[res])
+		res++;
+	if (size <= i)
+		res += size;
 	else
-		while (len > i)
-		{
-			len--;
-			*(str1++) = *(str2++);
-		}
-	return (dest);
+		res += i;
+	j = 0;
+	while (i + 1 < size && src[j])
+	{
+		dest[i] = src[j];
+		i++;
+		j++;
+	}
+	if (size > i)
+		dest[i] = '\0';
+	return (res);
 }

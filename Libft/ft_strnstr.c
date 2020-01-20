@@ -1,37 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memmove.c                                       :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pablo-ma <pablo-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/13 18:28:10 by pablo-ma          #+#    #+#             */
-/*   Updated: 2020/01/16 21:20:59 by pablo-ma         ###   ########.fr       */
+/*   Created: 2020/01/20 10:51:21 by pablo-ma          #+#    #+#             */
+/*   Updated: 2020/01/20 10:51:42 by pablo-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memmove(void *dest, const void *src, size_t len)
+char	*ft_strnstr(const char *str, const char *to_find, size_t len)
 {
 	size_t		i;
-	char		*str1;
-	char const	*str2;
+	size_t		j;
+	char		*s;
 
-	str1 = dest;
-	str2 = src;
 	i = 0;
-	if (str2 < str1)
-		while (i <= len)
+	s = (char *)str;
+	if (to_find[0] == '\0')
+		return (s);
+	while (str[i] != '\0' && i < len)
+	{
+		j = 0;
+		while (str[i + j] != '\0' && str[i + j] == to_find[j] && (i + j) < len)
 		{
-			i++;
-			str1[len - i] = str2[len - i];
+			if (to_find[j + 1] == '\0')
+				return (&s[i]);
+			++j;
 		}
-	else
-		while (len > i)
-		{
-			len--;
-			*(str1++) = *(str2++);
-		}
-	return (dest);
+		++i;
+	}
+	return (NULL);
 }

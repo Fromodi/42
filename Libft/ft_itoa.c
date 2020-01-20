@@ -1,37 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memmove.c                                       :+:      :+:    :+:   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pablo-ma <pablo-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/13 18:28:10 by pablo-ma          #+#    #+#             */
-/*   Updated: 2020/01/16 21:20:59 by pablo-ma         ###   ########.fr       */
+/*   Created: 2020/01/20 13:15:04 by pablo-ma          #+#    #+#             */
+/*   Updated: 2020/01/20 13:23:25 by pablo-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memmove(void *dest, const void *src, size_t len)
+char	*ft_itoa(int n)
 {
-	size_t		i;
-	char		*str1;
-	char const	*str2;
+	int		i;
+	int		j;
+	int		mod;
+	char	*str;
 
-	str1 = dest;
-	str2 = src;
-	i = 0;
-	if (str2 < str1)
-		while (i <= len)
-		{
-			i++;
-			str1[len - i] = str2[len - i];
-		}
-	else
-		while (len > i)
-		{
-			len--;
-			*(str1++) = *(str2++);
-		}
-	return (dest);
+	i = n;
+	j = 1;
+	mod = n < 0;
+	while (i /= 10)
+		j++;
+	if (!(str = malloc((j + 1 + mod) * sizeof(char))))
+		return (NULL);
+	if (mod)
+		*str++ = '-';
+	str += j;
+	*str-- = '\0';
+	if (n == 0)
+		*str-- = '0';
+	while (n)
+	{
+		*str-- = (n % 10) * (mod ? -1 : 1) + '0';
+		n /= 10;
+	}
+	return (str + 1 - mod);
 }

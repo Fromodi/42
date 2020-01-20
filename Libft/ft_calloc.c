@@ -1,37 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memmove.c                                       :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pablo-ma <pablo-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/13 18:28:10 by pablo-ma          #+#    #+#             */
-/*   Updated: 2020/01/16 21:20:59 by pablo-ma         ###   ########.fr       */
+/*   Created: 2020/01/20 13:03:22 by pablo-ma          #+#    #+#             */
+/*   Updated: 2020/01/20 13:03:38 by pablo-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memmove(void *dest, const void *src, size_t len)
+void	*ft_calloc(size_t count, size_t size)
 {
-	size_t		i;
-	char		*str1;
-	char const	*str2;
+	char	*p;
+	size_t	i;
 
-	str1 = dest;
-	str2 = src;
-	i = 0;
-	if (str2 < str1)
-		while (i <= len)
-		{
-			i++;
-			str1[len - i] = str2[len - i];
-		}
-	else
-		while (len > i)
-		{
-			len--;
-			*(str1++) = *(str2++);
-		}
-	return (dest);
+	i = -1;
+	p = (char*)malloc(count * size);
+	if (p == NULL)
+		return (NULL);
+	while (++i < count * size)
+	{
+		p[i] = '\0';
+	}
+	return (p);
 }

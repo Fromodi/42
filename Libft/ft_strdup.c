@@ -1,37 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memmove.c                                       :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pablo-ma <pablo-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/13 18:28:10 by pablo-ma          #+#    #+#             */
-/*   Updated: 2020/01/16 21:20:59 by pablo-ma         ###   ########.fr       */
+/*   Created: 2020/01/20 13:04:06 by pablo-ma          #+#    #+#             */
+/*   Updated: 2020/01/20 13:04:50 by pablo-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memmove(void *dest, const void *src, size_t len)
+char	*ft_strdup(const char *src)
 {
-	size_t		i;
-	char		*str1;
-	char const	*str2;
+	char			*str;
+	unsigned int	len;
+	unsigned int	i;
 
-	str1 = dest;
-	str2 = src;
 	i = 0;
-	if (str2 < str1)
-		while (i <= len)
-		{
-			i++;
-			str1[len - i] = str2[len - i];
-		}
-	else
-		while (len > i)
-		{
-			len--;
-			*(str1++) = *(str2++);
-		}
-	return (dest);
+	len = 0;
+	while (src[len])
+		len++;
+	str = (char*)malloc(sizeof(*str) * (len + 1));
+	if (str == NULL)
+		return (NULL);
+	while (i < len)
+	{
+		str[i] = src[i];
+		i++;
+	}
+	str[i] = '\0';
+	return (str);
 }

@@ -1,37 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memmove.c                                       :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pablo-ma <pablo-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/13 18:28:10 by pablo-ma          #+#    #+#             */
-/*   Updated: 2020/01/16 21:20:59 by pablo-ma         ###   ########.fr       */
+/*   Created: 2020/01/20 10:52:08 by pablo-ma          #+#    #+#             */
+/*   Updated: 2020/01/20 10:58:06 by pablo-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memmove(void *dest, const void *src, size_t len)
+int		ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	size_t		i;
-	char		*str1;
-	char const	*str2;
+	unsigned int	i;
+	unsigned char	*aux_s1;
+	unsigned char	*aux_s2;
 
-	str1 = dest;
-	str2 = src;
+	aux_s1 = (unsigned char *)s1;
+	aux_s2 = (unsigned char *)s2;
 	i = 0;
-	if (str2 < str1)
-		while (i <= len)
-		{
-			i++;
-			str1[len - i] = str2[len - i];
-		}
+	while (aux_s1[i] && aux_s2[i] && aux_s1[i] == aux_s2[i] && i < n)
+		i++;
+	if (n == i)
+	{
+		return (0);
+	}
+	if (aux_s1[i] != aux_s2[i])
+		return (aux_s1[i] - aux_s2[i]);
 	else
-		while (len > i)
-		{
-			len--;
-			*(str1++) = *(str2++);
-		}
-	return (dest);
+		return (0);
 }

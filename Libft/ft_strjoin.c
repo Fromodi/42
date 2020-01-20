@@ -1,37 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memmove.c                                       :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pablo-ma <pablo-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/13 18:28:10 by pablo-ma          #+#    #+#             */
-/*   Updated: 2020/01/16 21:20:59 by pablo-ma         ###   ########.fr       */
+/*   Created: 2020/01/20 13:09:10 by pablo-ma          #+#    #+#             */
+/*   Updated: 2020/01/20 13:10:34 by pablo-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memmove(void *dest, const void *src, size_t len)
+char		*ft_strjoin(char *s1, char *s2)
 {
-	size_t		i;
-	char		*str1;
-	char const	*str2;
+	unsigned int	i;
+	char			*str;
 
-	str1 = dest;
-	str2 = src;
+	if (s1 == NULL || s2 == NULL)
+		return (NULL);
+	str = (char*)malloc(sizeof(*str) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (str == NULL)
+		return (NULL);
 	i = 0;
-	if (str2 < str1)
-		while (i <= len)
-		{
-			i++;
-			str1[len - i] = str2[len - i];
-		}
-	else
-		while (len > i)
-		{
-			len--;
-			*(str1++) = *(str2++);
-		}
-	return (dest);
+	while (*s1)
+	{
+		str[i] = *s1++;
+		i++;
+	}
+	while (*s2)
+	{
+		str[i] = *s2++;
+		i++;
+	}
+	str[i] = '\0';
+	return (str);
 }
