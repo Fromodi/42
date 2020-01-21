@@ -1,33 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pablo-ma <pablo-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/20 11:04:01 by pablo-ma          #+#    #+#             */
-/*   Updated: 2020/01/21 21:35:44 by pablo-ma         ###   ########.fr       */
+/*   Created: 2020/01/21 19:00:00 by pablo-ma          #+#    #+#             */
+/*   Updated: 2020/01/21 19:00:20 by pablo-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_atoi(const char *str)
-{
-	unsigned int	res;
-	unsigned int	negative;
+#include "libft.h"
 
-	res = 0;
-	negative = 1;
-	while (*str && (*str == ' ' || *str == '\n' || *str == '\t' ||
-	*str == '\v' || *str == '\f' || *str == '\r'))
-		++str;
-	if (*str == '-')
-		negative = -1;
-	if (*str == '-' || *str == '+')
-		++str;
-	while (*str && *str >= '0' && *str <= '9')
+void	ft_putendl_fd(char *s, int fd)
+{
+	if (s)
 	{
-		res = res * 10 + (*str - '0');
-		++str;
+		write(fd, s, ft_strlen(s));
+		write(fd, "\n", 1);
 	}
-	return (res * negative);
 }

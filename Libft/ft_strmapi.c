@@ -1,33 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pablo-ma <pablo-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/20 11:04:01 by pablo-ma          #+#    #+#             */
-/*   Updated: 2020/01/21 21:35:44 by pablo-ma         ###   ########.fr       */
+/*   Created: 2020/01/21 18:20:09 by pablo-ma          #+#    #+#             */
+/*   Updated: 2020/01/21 18:21:21 by pablo-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_atoi(const char *str)
-{
-	unsigned int	res;
-	unsigned int	negative;
+#include "libft.h"
 
-	res = 0;
-	negative = 1;
-	while (*str && (*str == ' ' || *str == '\n' || *str == '\t' ||
-	*str == '\v' || *str == '\f' || *str == '\r'))
-		++str;
-	if (*str == '-')
-		negative = -1;
-	if (*str == '-' || *str == '+')
-		++str;
-	while (*str && *str >= '0' && *str <= '9')
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
+{
+	char			*str;
+	unsigned int	i;
+	int				j;
+
+	if (s && f)
 	{
-		res = res * 10 + (*str - '0');
-		++str;
+		i = 0;
+		j = ft_strlen((char *)s);
+		if ((str = (char *)malloc(j * sizeof(*s) + 1)) == NULL)
+			return (NULL);
+		while (s[i] != 0)
+		{
+			str[i] = f(i, s[i]);
+			i++;
+		}
+		str[i] = '\0';
+		return (str);
 	}
-	return (res * negative);
+	return (NULL);
 }
