@@ -1,38 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pablo-ma <pablo-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/20 13:09:10 by pablo-ma          #+#    #+#             */
-/*   Updated: 2020/01/23 10:33:08 by pablo-ma         ###   ########.fr       */
+/*   Created: 2020/01/23 10:17:25 by pablo-ma          #+#    #+#             */
+/*   Updated: 2020/01/24 11:59:27 by pablo-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char		*ft_strjoin(char const *s1, char const *s2)
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	unsigned int	i;
-	char			*str;
+	t_list *aux;
+	t_list *list;
 
-	if (s1 == NULL || s2 == NULL)
+	if (!lst)
 		return (NULL);
-	str = (char*)malloc(sizeof(*str) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	if (str == NULL)
-		return (NULL);
-	i = 0;
-	while (*s1)
+	list = ft_lstnew(f(lst->content));
+	aux = list;
+	while (lst->next)
 	{
-		str[i] = *s1++;
-		i++;
+		lst = lst->next;
+		if (!(list->next = ft_lstnew(f(lst->content))))
+		{
+			del(list->next);
+			free(list->next);
+			return (NULL);
+		}
+		list = list->next;
 	}
-	while (*s2)
-	{
-		str[i] = *s2++;
-		i++;
-	}
-	str[i] = '\0';
-	return (str);
+	return (aux);
 }
