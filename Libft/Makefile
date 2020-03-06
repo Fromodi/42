@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    makefile                                           :+:      :+:    :+:    #
+#    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: pablo-ma <pablo-ma@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/09 16:51:57 by pablo-ma          #+#    #+#              #
-#    Updated: 2020/01/23 10:31:54 by pablo-ma         ###   ########.fr        #
+#    Updated: 2020/03/06 10:47:12 by darktempl        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,25 +35,24 @@ RM			= rm -f
 
 CFLAGS		= -Wall -Wextra -Werror
 
-.c.o:		=
-
+.c.o:
 			@${CC} ${FLAGS} -c $< -o ${<:.c=.o}
 
 $(NAME):	${OBJS}
-			ar rc ${NAME} ${OBJS}
-			ranlib ${NAME}
+			@ar rc ${NAME} ${OBJS}
+			@ranlib ${NAME}
 
 bonus:		${OBJS} ${OBJS_BONUS}
-			ar rc ${NAME} ${OBJS} ${OBJS_BONUS}
-			ranlib ${NAME}
+			@ar rc ${NAME} ${OBJS} ${OBJS_BONUS}
+			@ranlib ${NAME}
 
 all:		${NAME}
 
 clean:
-			${RM} ${OBJS} ${OBJS_BONUS}
+			@${RM} ${OBJS} ${OBJS_BONUS}
 
 fclean:		clean
-			${RM} ${NAME}
+			@${RM} ${NAME}
 
 re:			fclean bonus
 
